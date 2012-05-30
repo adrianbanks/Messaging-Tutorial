@@ -1,4 +1,5 @@
-﻿using Topshelf;
+﻿using System;
+using Topshelf;
 
 namespace Receiver
 {
@@ -22,6 +23,10 @@ namespace Receiver
                 host.SetDescription("A simple message consumer that polls for messages");
                 host.SetServiceName("Simple.Polling.Consumer");
             });
+
+            Console.WriteLine();
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }
