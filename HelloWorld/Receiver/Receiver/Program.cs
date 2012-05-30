@@ -21,6 +21,10 @@ namespace Receiver
 
             var consumer = new Consumer(channelName);
             consumer.Consume();
+
+            Console.WriteLine();
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }

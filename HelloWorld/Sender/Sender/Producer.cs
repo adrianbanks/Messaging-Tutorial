@@ -14,15 +14,23 @@ namespace Sender
 
         public void EnsureQueueExists(string channelName)
         {
-            //TODO: If the channel does not exist create it, otherwise attach to it
+            // If the channel does not exist create it, otherwise attach to it
+            if (!MessageQueue.Exists(channelName))
+            {
+                channel = MessageQueue.Create(channelName);
+            }
+            else
+            {
+                channel = new MessageQueue(channelName);
+            }
         }
 
         public void Send(string message)
         {
             var requestMessage = new Message {Body = message};
 
-            //TODO: Send the message over the queue.
-
+            // Send the message over the queue.
+            channel.Send(requestMessage);
             requestMessage.TraceMessage();
         }
 

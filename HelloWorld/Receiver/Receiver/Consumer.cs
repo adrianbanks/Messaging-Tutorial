@@ -10,15 +10,24 @@ namespace Receiver
 
         public Consumer(string channelName)
         {
-            //TODO: Attach to a message queue identified in channelName. 
-            //TODO: Set the formatter
-            //TODO: We want to trace message headers such as correlation id, so we need to tell MSMQ to retrieve those by setting the property filter
+            // Attach to a message queue identified in channelName. 
+            channel = new MessageQueue(channelName);
+            
+            // Set the formatter
+            channel.Formatter = new XmlMessageFormatter(new[] {typeof(string)});
+            
+            // We want to trace message headers such as correlation id, so we need to tell MSMQ to retrieve those by setting the property filter
+            var filter = new MessagePropertyFilter();
+            filter.SetAll();
+            channel.MessageReadPropertyFilter = filter;
         }
 
         public void Consume()
         {
-            //TODO: recieve a message on the queue
-            //TODO: Trace the message out to the command line. HINT: Use the extension method.
+            // recieve a message on the queue
+            var message = channel.Receive();
+            // Trace the message out to the command line. HINT: Use the extension method.
+            message.TraceMessage();
         }
     }
 }

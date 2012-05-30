@@ -21,6 +21,10 @@ namespace Sender
 
             var producer = new Producer(channelName);
             producer.Send("Hello World");
+
+            Console.WriteLine();
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }
