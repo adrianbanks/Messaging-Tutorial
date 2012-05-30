@@ -26,6 +26,10 @@ namespace Sender
 
             var producer = new Producer(channelName);
             producer.Send(message);
+
+            Console.WriteLine();
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
         
         private static bool CheckArguments(string message, string channel)

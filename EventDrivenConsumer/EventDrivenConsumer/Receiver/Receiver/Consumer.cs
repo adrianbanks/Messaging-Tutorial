@@ -1,5 +1,6 @@
 using System;
 using System.Messaging;
+using MessageUtilities;
 
 namespace Receiver
 {
@@ -14,16 +15,17 @@ namespace Receiver
             channel = new MessageQueue(channelName) {Formatter = new XmlMessageFormatter(new[] {typeof (string)})};
             //We want to trace message headers such as correlation id, so we need to tell MSMQ to retrieve those
             channel.MessageReadPropertyFilter.SetAll();
-            //TODO: Set up a callback for the recieve completed event that calls the Consume method
+            // Set up a callback for the recieve completed event that calls the Consume method
+            channel.ReceiveCompleted += new ReceiveCompletedEventHandler(Consume);
         }
 
         public void Start()
         {
             isRunning = true;
-            //TODO: On start we need to wait on messages from the queue
+            // On start we need to wait on messages from the queue
+            channel.BeginReceive();
             Console.WriteLine("Service started");
         }
-
 
         public void Pause()
         {
@@ -40,9 +42,16 @@ namespace Receiver
 
         private void Consume(object source, ReceiveCompletedEventArgs result)
         {
-            //TODO: The Consume method is called on completion of a message being received
-            //TODO: We need to obtain the message from the result by calling EndRecieve
-            //TODO: We also want to begin recieving again, unless we have stopped running
+            // The Consume method is called on completion of a message being received
+            // We need to obtain the message from the result by calling EndRecieve
+            var message = channel.EndReceive(result.AsyncResult);
+            message.TraceMessage();
+            
+            // We also want to begin recieving again, unless we have stopped running
+            if (isRunning)
+            {
+                channel.BeginReceive();
+            }            
         }
     }
 }
