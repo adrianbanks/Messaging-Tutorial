@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Messaging;
 using MessageUtilities;
+using System.Text;
 
 namespace Receiver
 {
@@ -17,14 +18,14 @@ namespace Receiver
 
             inputChannel.MessageReadPropertyFilter.SetAll();
 
-            //TODO: Build up the routing table. For any topic you want to send, create an output queue
-            //TODO: For extra points, read this routing table from configuration
+            // Build up the routing table. For any topic you want to send, create an output queue
+            // For extra points, read this routing table from configuration
             //HINT: Note that the queue name here must match one provided by one of your recievers otherwise you won't see this working
             //HINT: In practice using configuration makes adding new consumers a config not code choise which reduces testing requirements
+            Array.ForEach(ConfigurationSettings.Topics, t => routingTable.Add(t, EnsureQueueExists(inputChannelName + "_" + t)));
  
             inputChannel.ReceiveCompleted += Route;
         }
-
 
         public void Start()
         {
@@ -63,11 +64,20 @@ namespace Receiver
 
                 TraceMessage(message);
 
-                //TODO: read topic from the message Extension
+                var bytes = message.Extension;
+                // read topic from the message Extension
                 //HINT: Use Convert to change bytes to string
+                string topic = Encoding.Unicode.GetString(bytes);
 
-                //TODO: Look up the target queue for the topic
-                //TODO: Send to the target queue
+                // Look up the target queue for the topic
+                MessageQueue topicQueue = null;
+
+                if (routingTable.TryGetValue(topic, out topicQueue))
+                {
+                    // Send to the target queue
+                    topicQueue.Send(message);
+                }
+
             }
             catch (MessageQueueException mqe)
             {
