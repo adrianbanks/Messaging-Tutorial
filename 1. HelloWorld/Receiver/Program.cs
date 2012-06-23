@@ -1,16 +1,17 @@
 ﻿using System;
 using NDesk.Options;
 
-namespace Sender
+namespace Receiver
 {
-    class Program
+    internal class Program
     {
-        //sender -c=hello_world
-        static void Main(string[] args)
+        //receiver -c=hello_world
+        private static void Main(string[] args)
         {
             string channel = string.Empty;
-            var p = new OptionSet() {{"c|channel=", "The name of the channel that we should send messages to", c => channel = c}};
+            OptionSet p = new OptionSet {{"c|channel=", "The name of the channel that we should send messages to", c => channel = c}};
             p.Parse(args);
+
             if (string.IsNullOrEmpty(channel))
             {
                 Console.WriteLine("You must provide a channel name");
@@ -19,8 +20,8 @@ namespace Sender
 
             string channelName = string.Format(@".\private$\{0}", channel);
 
-            var producer = new Producer(channelName);
-            producer.Send("Hello World");
+            Consumer consumer = new Consumer(channelName);
+            consumer.Consume();
 
             Console.WriteLine();
             Console.WriteLine("Done");

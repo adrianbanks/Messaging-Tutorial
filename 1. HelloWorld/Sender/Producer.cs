@@ -3,7 +3,7 @@ using MessageUtilities;
 
 namespace Sender
 {
-    class Producer
+    internal class Producer
     {
         private MessageQueue channel;
 
@@ -15,24 +15,18 @@ namespace Sender
         public void EnsureQueueExists(string channelName)
         {
             // If the channel does not exist create it, otherwise attach to it
-            if (!MessageQueue.Exists(channelName))
-            {
-                channel = MessageQueue.Create(channelName);
-            }
-            else
-            {
-                channel = new MessageQueue(channelName);
-            }
+            channel = MessageQueue.Exists(channelName)
+                                  ? new MessageQueue(channelName)
+                                  : MessageQueue.Create(channelName);
         }
 
         public void Send(string message)
         {
-            var requestMessage = new Message {Body = message};
+            Message requestMessage = new Message {Body = message};
 
             // Send the message over the queue.
             channel.Send(requestMessage);
-            requestMessage.TraceMessage();
+            requestMessage.TraceSentMessage();
         }
-
     }
 }

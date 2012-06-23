@@ -11,7 +11,8 @@
     <RootNamespace>Sender</RootNamespace>
     <AssemblyName>Sender</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -41,13 +42,18 @@
     <Reference Include="System.Messaging" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageExtensions.cs" />
     <Compile Include="Producer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\MessageUtilities\MessageUtilities.csproj">
+      <Project>{672305AE-5252-4AE4-98C5-783426359C98}</Project>
+      <Name>MessageUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

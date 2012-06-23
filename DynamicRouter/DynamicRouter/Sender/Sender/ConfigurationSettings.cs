@@ -4,7 +4,7 @@ namespace Sender
 {
     class ConfigurationSettings
     {
-        public ConfigurationSettings()
+        static ConfigurationSettings()
         {
             OutBoundChannel = ConfigurationManager.AppSettings["OutputChannel"];
         }
