@@ -1,4 +1,5 @@
-﻿using MessageUtilities;
+﻿using System;
+using MessageUtilities;
 
 namespace Receiver
 {
@@ -6,6 +7,7 @@ namespace Receiver
     {
         private static void Main()
         {
+            Console.WriteLine("Receiver");
             ReceiverUtil.Delay();
 
             Consumer consumer = new Consumer(ChannelConfiguration.Name);

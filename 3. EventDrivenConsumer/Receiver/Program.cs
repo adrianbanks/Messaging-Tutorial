@@ -1,4 +1,5 @@
-﻿using MessageUtilities;
+﻿using System;
+using MessageUtilities;
 using Topshelf;
 
 namespace Receiver
@@ -7,7 +8,9 @@ namespace Receiver
     {
         private static void Main()
         {
+            Console.WriteLine("Receiver");
             ReceiverUtil.Delay();
+
             HostFactory.Run(host =>
                                 {
                                     host.Service<Consumer>(service =>

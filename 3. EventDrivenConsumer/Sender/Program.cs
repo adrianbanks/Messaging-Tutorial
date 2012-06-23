@@ -1,4 +1,5 @@
-﻿using MessageUtilities;
+﻿using System;
+using MessageUtilities;
 
 namespace Sender
 {
@@ -6,11 +7,12 @@ namespace Sender
     {
         private static void Main()
         {
+            Console.WriteLine("Sender");
             Producer producer = new Producer(ChannelConfiguration.Name);
             
             while (true)
             {
-                string message = SenderUtil.GetMessage();
+                string message = SenderUtil.GetInput();
                 producer.Send(message);
             }
         }

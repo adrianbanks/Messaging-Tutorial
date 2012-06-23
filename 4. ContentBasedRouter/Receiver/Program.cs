@@ -10,6 +10,7 @@ namespace Receiver
         {
             ReceiverUtil.Delay();
             Console.WriteLine("Receiver");
+
             HostFactory.Run(host =>
                                 {
                                     host.Service<Consumer>(service =>

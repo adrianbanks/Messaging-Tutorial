@@ -7,12 +7,12 @@ namespace Sender
     {
         private static void Main()
         {
+            Console.WriteLine("Sender");
             Producer producer = new Producer(ChannelConfiguration.Name);
 
             while (true)
             {
-                Console.Write("Enter message :> ");
-                string message = Console.ReadLine();
+                string message = SenderUtil.GetInput("message");
                 producer.Send(message);
             }
         }
