@@ -28,6 +28,8 @@ namespace Receiver
                                     host.SetDescription("A simple message consumer that waits for messages");
                                     host.SetServiceName("Simple.EventDriven.Consumer");
                                 });
+
+            ConsolePause.PauseForInput();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace Receiver
                                     host.SetDescription("A simple broker that connects producers to consumers");
                                     host.SetServiceName("Simple.MessageBroker");
                                 });
+
+            ConsolePause.PauseForInput();
         }
     }
 }

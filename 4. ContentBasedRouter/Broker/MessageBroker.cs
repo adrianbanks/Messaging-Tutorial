@@ -17,6 +17,8 @@ namespace Receiver
             inputChannel = EnsureQueueExists(inputChannelName);
             inputChannel.MessageReadPropertyFilter.SetAll();
 
+            Console.WriteLine("Topics: {0}", string.Join(", ", ConfigurationSettings.Topics));
+
             // Build up the routing table. For any topic you want to send, create an output queue
             Array.ForEach(ConfigurationSettings.Topics, t => routingTable.Add(t, EnsureQueueExists(inputChannelName + "_" + t)));
             inputChannel.ReceiveCompleted += Route;

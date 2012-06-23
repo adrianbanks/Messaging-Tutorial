@@ -28,6 +28,8 @@ namespace Receiver
                                     host.SetDescription("A simple message consumer that polls for messages");
                                     host.SetServiceName("Simple.Polling.Consumer");
                                 });
+
+            ConsolePause.PauseForInput();
         }
     }
 }
