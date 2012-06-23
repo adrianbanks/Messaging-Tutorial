@@ -22,9 +22,7 @@ namespace Receiver
         public MessageBroker(string inputChannelName)
         {
             inputChannel = EnsureQueueExists(inputChannelName);
-
             inputChannel.MessageReadPropertyFilter.SetAll();
-
             inputChannel.ReceiveCompleted += Route;
 
             //TODO: Create a control channel to recieve routing information from subscribers 

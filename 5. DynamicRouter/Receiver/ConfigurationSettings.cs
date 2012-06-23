@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using MessageUtilities;
 
 namespace Receiver
 {
@@ -11,7 +12,8 @@ namespace Receiver
 
         static ConfigurationSettings()
         {
-            ControlChannelName = ConfigurationManager.AppSettings["ControlChannelName"];
+            string channelName = ConfigurationManager.AppSettings["ControlChannelName"];
+            ControlChannelName = ChannelConfiguration.GetFullChannelName(channelName);
             Topic = ConfigurationManager.AppSettings["Topic"];
             PollingTimeout = Convert.ToInt32(ConfigurationManager.AppSettings["PollingTimeout"]);
         }
