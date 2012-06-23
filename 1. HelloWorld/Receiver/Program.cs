@@ -1,31 +1,20 @@
-﻿using System;
-using NDesk.Options;
+﻿using System.Threading;
+using MessageUtilities;
 
 namespace Receiver
 {
     internal class Program
     {
-        //receiver -c=hello_world
-        private static void Main(string[] args)
+        private static void Main()
         {
-            string channel = string.Empty;
-            OptionSet p = new OptionSet {{"c|channel=", "The name of the channel that we should send messages to", c => channel = c}};
-            p.Parse(args);
-
-            if (string.IsNullOrEmpty(channel))
-            {
-                Console.WriteLine("You must provide a channel name");
-                return;
-            }
-
+            Thread.Sleep(2000);
+            string channel = ChannelConfiguration.Name;
             string channelName = string.Format(@".\private$\{0}", channel);
 
             Consumer consumer = new Consumer(channelName);
             consumer.Consume();
 
-            Console.WriteLine();
-            Console.WriteLine("Done");
-            Console.ReadLine();
+            ConsolePause.PauseForInput();
         }
     }
 }
