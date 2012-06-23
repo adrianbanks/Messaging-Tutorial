@@ -5,3 +5,5 @@
 *.user
 *.ncrunchsolution
 *.dotCover
+
+_ReSharper.*

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using MessageUtilities;
+﻿using MessageUtilities;
 
 namespace Receiver
 {
@@ -7,11 +6,9 @@ namespace Receiver
     {
         private static void Main()
         {
-            Thread.Sleep(2000);
-            string channel = ChannelConfiguration.Name;
-            string channelName = string.Format(@".\private$\{0}", channel);
+            ReceiverUtil.Delay();
 
-            Consumer consumer = new Consumer(channelName);
+            Consumer consumer = new Consumer(ChannelConfiguration.Name);
             consumer.Consume();
 
             ConsolePause.PauseForInput();
