@@ -8,7 +8,8 @@ namespace MessageUtilities
 
         static ChannelConfiguration()
         {
-            Name = ConfigurationManager.AppSettings["ChannelName"];
+            string channelName = ConfigurationManager.AppSettings["ChannelName"];
+            Name = string.Format(@".\private$\{0}", channelName);
         }
     }
 }
